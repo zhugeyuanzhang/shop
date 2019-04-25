@@ -75,51 +75,103 @@ public class GameDTO {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getCreater() {
         return creater;
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDesc() {
         return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getSystemcfg() {
         return systemcfg;
     }
 
+    public void setSystemcfg(String systemcfg) {
+        this.systemcfg = systemcfg;
+    }
+
     public Double getPrice() {
         return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public Double getDiscount() {
         return discount;
     }
 
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
     public Date getCtime() {
         return ctime;
+    }
+
+    public void setCtime(Date ctime) {
+        this.ctime = ctime;
     }
 
     public Date getUtime() {
         return utime;
     }
 
+    public void setUtime(Date utime) {
+        this.utime = utime;
+    }
+
     public Byte getStat() {
         return stat;
+    }
+
+    public void setStat(Byte stat) {
+        this.stat = stat;
     }
 
     public List<Kind> getKinds() {
         return kinds;
     }
 
+    public void setKinds(List<Kind> kinds) {
+        this.kinds = kinds;
+    }
+
     public List<Tag> getTags() {
         return tags;
     }
 
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
     public List<String> getImg() {
         return img;
+    }
+
+    public void setImg(List<String> img) {
+        this.img = img;
     }
 }

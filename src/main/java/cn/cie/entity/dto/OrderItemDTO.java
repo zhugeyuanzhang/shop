@@ -37,6 +37,34 @@ public class OrderItemDTO {
         }
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setCodeStat(Byte codeStat) {
+        this.codeStat = codeStat;
+    }
+
+    public void setCtime(Date ctime) {
+        this.ctime = ctime;
+    }
+
+    public void setUtime(Date utime) {
+        this.utime = utime;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
     public Integer getId() {
         return id;
     }

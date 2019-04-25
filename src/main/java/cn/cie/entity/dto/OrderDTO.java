@@ -1,7 +1,6 @@
 package cn.cie.entity.dto;
 
 import cn.cie.entity.Order;
-import cn.cie.entity.Orderitem;
 
 import java.util.Date;
 import java.util.List;
@@ -53,6 +52,34 @@ public class OrderDTO {
         this.ctime = order.getCtime();
         this.utime = order.getUtime();
         this.stat = order.getStat();
+        this.orderitems = orderitems;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public void setCtime(Date ctime) {
+        this.ctime = ctime;
+    }
+
+    public void setUtime(Date utime) {
+        this.utime = utime;
+    }
+
+    public void setStat(Byte stat) {
+        this.stat = stat;
+    }
+
+    public void setOrderitems(List<OrderItemDTO> orderitems) {
         this.orderitems = orderitems;
     }
 
