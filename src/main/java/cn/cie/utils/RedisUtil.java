@@ -19,7 +19,7 @@ public class RedisUtil<T> implements InitializingBean {
 
     private JedisPool jedisPool;
 
-    private static final String REDIS_URL = "redis://localhost:6379/6";
+    private static final String REDIS_URL = "redis://zgyz:123456@localhost:6379/6";
 
     public static final String EVERYDAY = "everyday";
 
