@@ -10,7 +10,7 @@ import org.apache.commons.mail.SimpleEmail;
 public class MailUtil {
 
     private final static String USERNAME = "wojiaozhuyuanzhang@163.com";
-    private final static String PASSWORD = "zaq123edc";           // 需要打开SMTP并使用此授权码登录
+    private final static String PASSWORD = "abc12345";           // 需要打开SMTP并使用此授权码登录
 
     /**
      * 发送邮件给指定人，需要主题和内容
