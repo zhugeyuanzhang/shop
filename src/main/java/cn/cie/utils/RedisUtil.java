@@ -325,6 +325,7 @@ public class RedisUtil<T> implements InitializingBean {
      *
      * @throws Exception
      */
+    @Override
     public void afterPropertiesSet() throws Exception {
         jedisPool = new JedisPool(REDIS_URL);
     }
