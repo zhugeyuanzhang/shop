@@ -38,8 +38,10 @@ public class AdminServiceImpl implements AdminService {
     private ImgMapper imgMapper;
     @Autowired
     private RedisUtil redisUtil;
+    private int page;
 
 
+    @Override
     public Result login(String username, String password) {
         if (username == null || password == null) {
             return Result.fail(MsgCenter.EMPTY_LOGIN);
@@ -60,7 +62,9 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    @Override
     public Result getUser(int page) {
+        this.page = page;
         PageUtil pageUtil = new PageUtil(userMapper.selectAllNums(), page);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("user", userMapper.selectByPage(pageUtil.getStartPos(), pageUtil.getSize()));
@@ -68,6 +72,7 @@ public class AdminServiceImpl implements AdminService {
         return Result.success(map);
     }
 
+    @Override
     public Result restrict(Integer uid) {
         User user = new User();
         user.setId(uid);
@@ -79,6 +84,7 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    @Override
     public Result relieve(Integer uid) {
         User user = new User();
         user.setId(uid);
@@ -90,6 +96,7 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    @Override
     public Result delete(Integer uid) {
         User user = new User();
         user.setId(uid);
@@ -101,6 +108,7 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    @Override
     public Result getGames(int page) {
         PageUtil pageUtil = new PageUtil(gameMapper.selectNums(), page);
         List<Game> games = gameMapper.selectByPage(pageUtil.getStartPos(), pageUtil.getSize());
@@ -110,6 +118,7 @@ public class AdminServiceImpl implements AdminService {
         return Result.success(map);
     }
 
+    @Override
     @Transactional
     public Result addGame(Game game, Integer[] kind, MultipartFile header, MultipartFile[] pics, String path) throws IOException {
         // 判断游戏信息
@@ -162,6 +171,7 @@ public class AdminServiceImpl implements AdminService {
         return Result.success();
     }
 
+    @Override
     public Result updateGameInfo(Game game) {
         if (game.getId() == null) {
             return Result.fail(MsgCenter.ERROR_PARAMS);
@@ -170,6 +180,7 @@ public class AdminServiceImpl implements AdminService {
         return Result.success();
     }
 
+    @Override
     public Result getGameKind(Integer game) {
         if (gameMapper.selectById(game) == null) {
             return Result.fail(MsgCenter.ERROR_PARAMS);
@@ -179,6 +190,7 @@ public class AdminServiceImpl implements AdminService {
         return Result.success(kinds);
     }
 
+    @Override
     @Transactional
     public Result updateGameKind(Integer game, List<Integer> kinds) {
         kindmapperMapper.deleteByGame(game);
@@ -186,6 +198,7 @@ public class AdminServiceImpl implements AdminService {
         return Result.success();
     }
 
+    @Override
     public Result upGame(Integer id, Date date) {
         Game game = gameMapper.selectById(id);
         // 如果没有这个游戏返回参数错误
@@ -205,6 +218,7 @@ public class AdminServiceImpl implements AdminService {
         return Result.fail(MsgCenter.ERROR);
     }
 
+    @Override
     public Result downGame(Integer id) {
         Game game = gameMapper.selectById(id);
         // 如果没有这个游戏返回参数错误
@@ -219,6 +233,7 @@ public class AdminServiceImpl implements AdminService {
         return Result.fail(MsgCenter.ERROR);
     }
 
+    @Override
     @Transactional
     public Result addKind(String name) {
         Kind kind = kindMapper.selectByName(name);
@@ -235,6 +250,7 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    @Override
     @Transactional
     public Result managerKind(Integer kind, List<Integer> games) {
         kindmapperMapper.deleteByKind(kind);
@@ -242,6 +258,7 @@ public class AdminServiceImpl implements AdminService {
         return Result.success();
     }
 
+    @Override
     public Result getAllGames() {
         List<Game> games = gameMapper.selectAll();
         List<GameDTO> gameDTOS = new ArrayList<GameDTO>();

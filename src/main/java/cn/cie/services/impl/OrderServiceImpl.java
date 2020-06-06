@@ -65,6 +65,7 @@ public class OrderServiceImpl implements OrderService {
         return Result.success(order);
     }
 
+    @Override
     public Result cancelOrder(int uid, int orderid) {
         Order order = orderMapper.selectById(orderid);
         // 如果orderid错误或者用户与订单不匹配，就返回错误
@@ -78,6 +79,7 @@ public class OrderServiceImpl implements OrderService {
         return Result.fail(MsgCenter.ERROR);
     }
 
+    @Override
     @Transactional
     public Result pay(int uid, int orderid) {
         Order order = orderMapper.selectById(orderid);
@@ -104,11 +106,13 @@ public class OrderServiceImpl implements OrderService {
         return Result.success();
     }
 
+    @Override
     public boolean exists(int orderid) {
         return orderMapper.selectById(orderid) != null;
     }
 
 
+    @Override
     public Result getNotPayOrders(int uid, int page) {
         PageUtil pageUtil = new PageUtil(orderMapper.getOrderNumsByUidAndStat(uid, Order.STAT_NOT_PAY), page);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -117,6 +121,7 @@ public class OrderServiceImpl implements OrderService {
         return Result.success(map);
     }
 
+    @Override
     public Result getPaidOrders(int uid, int page) {
         PageUtil pageUtil = new PageUtil(orderMapper.getOrderNumsByUidAndStat(uid, Order.STAT_PAY), page);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -125,6 +130,7 @@ public class OrderServiceImpl implements OrderService {
         return Result.success(map);
     }
 
+    @Override
     public Result getCancelOrders(int uid, int page) {
         PageUtil pageUtil = new PageUtil(orderMapper.getOrderNumsByUidAndStat(uid, Order.STAT_CANCEL), page);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -133,6 +139,7 @@ public class OrderServiceImpl implements OrderService {
         return Result.success(map);
     }
 
+    @Override
     public void autoCancelOrder() {
         Date date = new Date();
         date.setTime(date.getTime() - 1000 * 60 * 15);  // 过期时间为15分钟

@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private EventProducer eventProducer;
 
+    @Override
     @Transactional
     public Result register(User user) {
         // 验证参数是否合法
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService {
         return Result.fail(MsgCenter.ERROR);
     }
 
+    @Override
     @Transactional
     public Result sendMail(User user) {
         if (user.getStat().equals(User.STAT_OK)) {    // 用户已经验证过了
@@ -88,6 +90,7 @@ public class UserServiceImpl implements UserService {
         return Result.success();
     }
 
+    @Override
     @Transactional
     public Result validate(Integer uid, String code) {
         String uuid = redisUtil.get("validatecode_" + uid);
@@ -104,6 +107,7 @@ public class UserServiceImpl implements UserService {
         return Result.fail(MsgCenter.CODE_ERROR);
     }
 
+    @Override
     @Transactional
     public Result login(String username, String password, boolean remember, String ip, String device) {
         if (username == null || password == null) {
@@ -135,6 +139,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public Result logout(String token) {
         if (token == null || token.length() != 32) {
             return Result.fail(MsgCenter.ERROR_PARAMS);
@@ -144,6 +149,7 @@ public class UserServiceImpl implements UserService {
         return Result.success();
     }
 
+    @Override
     public Result updateUserInfo(User user) {
         if (userHolder.getUser() == null) {
             return Result.fail(MsgCenter.USER_NOT_LOGIN);
@@ -174,6 +180,7 @@ public class UserServiceImpl implements UserService {
         return Result.fail(MsgCenter.ERROR);
     }
 
+    @Override
     public Result updatePassword(String password) {
         if (StringUtils.isBlank(password)) {
             return Result.fail(MsgCenter.EMPTY_PASSWORD);
@@ -190,6 +197,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public Result forgetPassword(String password, String email, String code) {
         User user = null;
         if (StringUtils.isBlank(email)) {
@@ -216,6 +224,7 @@ public class UserServiceImpl implements UserService {
         return Result.fail(MsgCenter.CODE_ERROR);
     }
 
+    @Override
     public Result sendFetchPwdMail(String email) {
         if (StringUtils.isBlank(email)) {
             return Result.fail(MsgCenter.EMPTY_EMAIL);
@@ -234,6 +243,7 @@ public class UserServiceImpl implements UserService {
         return Result.success();
     }
 
+    @Override
     public void delNotValidateUser() {
         List<User> users = userMapper.selectByStat(User.STAT_NOT_VALIDATE);
         Date date = new Date();
@@ -245,6 +255,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public void expireToken() {
         Date date = new Date();
         tokenMapper.updateStatByDate(date, Token.STAT_EXPIRED);

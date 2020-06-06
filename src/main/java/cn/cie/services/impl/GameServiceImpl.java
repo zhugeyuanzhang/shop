@@ -36,6 +36,7 @@ public class GameServiceImpl implements GameService {
     @Autowired
     private RedisUtil<GameDTO> redisUtil;
 
+    @Override
     public Result<GameDTO> getById(Integer id) {
         Game game = gameMapper.selectById(id);
         if (game == null) {
@@ -51,6 +52,7 @@ public class GameServiceImpl implements GameService {
         return Result.success(res);
     }
 
+    @Override
     public Result<List<GameDTO>> getRandomGames() {
         // 先从缓存中取数据，如果没有再自动生成
         List<GameDTO> res = redisUtil.lall("everyday", GameDTO.class);
@@ -81,6 +83,7 @@ public class GameServiceImpl implements GameService {
         return Result.success(res);
     }
 
+    @Override
     public Result<List<GameDTO>> newestGames() {
         List<GameDTO> res = redisUtil.lall(RedisUtil.NEWESTGAME, GameDTO.class);
         if (res == null || res.size() == 0) {
@@ -91,6 +94,7 @@ public class GameServiceImpl implements GameService {
         return Result.success(res);
     }
 
+    @Override
     public Result<List<GameDTO>> preUpGames() {
         List<GameDTO> res = redisUtil.lall(RedisUtil.PRE_UP_GAMES, GameDTO.class);
         if (res == null || res.size() == 0) {
@@ -101,6 +105,7 @@ public class GameServiceImpl implements GameService {
         return Result.success(res);
     }
 
+    @Override
     public Result<List<GameDTO>> search(String info) {
         List<Integer> kindIds = kindMapper.selectIdByLikeName(info);
         List<Integer> tagIds = tagMapper.selectIdByLikeName(info);
@@ -129,11 +134,13 @@ public class GameServiceImpl implements GameService {
         return Result.success(paresGameDTO(games));
     }
 
+    @Override
     public Result getFreeGames() {
         List<Game> games = gameMapper.selectFreeGames();
         return Result.success(paresGameDTO(games));
     }
 
+    @Override
     public boolean exists(Integer id) {
         return gameMapper.selectById(id) != null;
     }

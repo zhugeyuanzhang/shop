@@ -44,10 +44,12 @@ public class TagServiceImpl implements TagService {
         return tag.getName();
     }
 
+    @Override
     public Result<List<Tag>> getAll() {
         return Result.success(tagMapper.selectAll());
     }
 
+    @Override
     public Result<Tag> addTag(String name) {
         Tag tag = new Tag();
         tag.setName(name);
@@ -58,6 +60,7 @@ public class TagServiceImpl implements TagService {
         }
     }
 
+    @Override
     @Transactional
     public Result addTag(String name, Integer game) {
         // 如果没有这个游戏，就返回404
@@ -76,6 +79,7 @@ public class TagServiceImpl implements TagService {
         return Result.fail(MsgCenter.ERROR);
     }
 
+    @Override
     public Result addTag(Integer tag, Integer game) {
         // 如果没有这个游戏，就返回404
         if (gameMapper.selectById(game) == null) {
@@ -91,6 +95,7 @@ public class TagServiceImpl implements TagService {
         }
     }
 
+    @Override
     public Result<List<GameDTO>> getGamesByTag(Integer tag, Integer page) {
         // 没有这个标签，返回404
         if (tagMapper.selectById(tag) == null) {

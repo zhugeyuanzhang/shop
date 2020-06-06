@@ -37,6 +37,7 @@ public class KindServiceImpl implements KindService {
     @Autowired
     private RedisUtil<Kind> redisUtil;
 
+    @Override
     public String getNameById(Integer id) {
         Kind kind = kindMapper.selectById(id);
         if (kind == null) {
@@ -45,6 +46,7 @@ public class KindServiceImpl implements KindService {
         return kind.getName();
     }
 
+    @Override
     public Result<Kind> getAll() {
         List<Kind> kinds = redisUtil.lall(RedisUtil.KINDS, Kind.class);
         // 如果缓存中没有，从数据库中查询，并且添加到缓存中
@@ -56,6 +58,7 @@ public class KindServiceImpl implements KindService {
         return Result.success(kinds);
     }
 
+    @Override
     public Result<List<GameDTO>> getGamesByKind(int kind, int page) {
         if (kindMapper.selectById(kind) == null) {
             return Result.fail(MsgCenter.NOT_FOUND);
