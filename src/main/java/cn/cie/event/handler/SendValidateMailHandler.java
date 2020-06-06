@@ -15,10 +15,12 @@ import java.util.List;
 @Service
 public class SendValidateMailHandler implements EventHandler {
 
+    @Override
     public void doHandler(EventModel model) {
         MailUtil.sendValidateMail(model.getExts("mail"), model.getExts("code"));
     }
 
+    @Override
     public List<EventType> getSupportEvent() {
         return Arrays.asList(EventType.SEND_VALIDATE_EMAIL);
     }

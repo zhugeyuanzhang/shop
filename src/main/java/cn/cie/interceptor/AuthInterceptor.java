@@ -34,6 +34,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Autowired
     private UserHolder userHolder;
 
+    @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         // 如果请求静态资源直接pass
         if (httpServletRequest.getRequestURI().matches("^/img/[\\S]+\\.(png|jpg)$") || httpServletRequest.getRequestURI().matches("^/css/[\\S]+\\.css$")
@@ -95,6 +96,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         if (modelAndView == null) {
             return;
@@ -104,6 +106,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
     }
 
+    @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
         userHolder.remove();
     }

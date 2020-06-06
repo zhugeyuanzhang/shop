@@ -15,10 +15,12 @@ import java.util.List;
 @Service
 public class SendFindPwdMailHandler implements EventHandler {
 
+    @Override
     public void doHandler(EventModel model) {
         MailUtil.sendFetchPwdMail(model.getExts("mail"), model.getExts("code"));
     }
 
+    @Override
     public List<EventType> getSupportEvent() {
         return Arrays.asList(EventType.SEND_FIND_PWD_EMAIL);
     }

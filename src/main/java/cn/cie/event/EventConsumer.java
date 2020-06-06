@@ -39,6 +39,7 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware,
      */
     private Map<EventType, List<EventHandler>> handlers = new HashMap<EventType, List<EventHandler>>();
 
+    @Override
     public void afterPropertiesSet() throws Exception {
         // 从上下文中获取所有的handler
         Map<String, EventHandler> beans = applicationContext.getBeansOfType(EventHandler.class);
@@ -57,6 +58,7 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware,
         // 设置线程池的大小为 CPU 的核数 * 2
         threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 2);
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 while (true) {
                     EventModel event = redisUtil.lpopObject(EventModel.EVENT_KEY, EventModel.class);
@@ -86,15 +88,18 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware,
             this.event = event;
         }
 
+        @Override
         public void run() {
             handler.doHandler(event);
         }
     }
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
 
+    @Override
     public void destroy() throws Exception {
         if (threadPool != null) {
             while (threadPool.getQueue().size() != 0 || threadPool.getActiveCount() != 0) {
